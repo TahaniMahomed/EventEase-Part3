@@ -1,0 +1,87 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: Bootstrap Badge & Icon Implementation
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://icons.getbootstrap.com/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Relational Data Display (Details View)
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/details
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Danger Zone UI Patterns
+AUTHOR: UX StackExchange Contributors
+DATE: 7 May 2026
+VERSION: Community Best Practices
+AVAILABLE: https://ux.stackexchange.com/questions/112520/best-practices-for-danger-zone-confirmations
+*@
+
+@model Event_Ease2.Models.Booking
+
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<div class="container py-5">
+    <nav class="mb-4">
+        <a asp-action="Index" class="text-decoration-none text-muted fw-medium">
+            <i class="bi bi-arrow-left me-2"></i>Back to My Bookings
+        </a>
+    </nav>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="bg-primary p-5 text-white text-center">
+                    <div class="bg-white rounded-circle d-inline-flex p-3 mb-3">
+                        <i class="bi bi-file-earmark-check-fill text-primary fs-2"></i>
+                    </div>
+                    <h2 class="fw-bold">Booking Confirmation</h2>
+                    <p class="mb-0 opacity-75">Reference ID: #@Model.BookingID</p>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h6 class="text-uppercase text-muted small fw-bold mb-3">Event Details</h6>
+                            <h4 class="fw-bold text-dark">@Model.Event.EventName</h4>
+                            <p class="text-muted"><i class="bi bi-geo-alt-fill text-danger me-2"></i>@Model.Venue.VenueName</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <h6 class="text-uppercase text-muted small fw-bold mb-3">Reservation Date</h6>
+                            <h4 class="fw-bold text-dark">@Model.BookingDate.ToString("MMMM dd, yyyy")</h4>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="bg-soft rounded-4 p-4">
+                        <div class="row text-center">
+                            <div class="col-6 border-end">
+                                <small class="text-muted d-block text-uppercase fw-bold mb-1" style="font-size: 0.7rem;">Check-In</small>
+                                <span class="fs-5 fw-bold text-dark">@Model.StartDate.ToString("MMM dd, HH:mm")</span>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block text-uppercase fw-bold mb-1" style="font-size: 0.7rem;">Check-Out</small>
+                                <span class="fs-5 fw-bold text-dark">@Model.EndDate.ToString("MMM dd, HH:mm")</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 d-flex gap-2 justify-content-center">
+                        <a asp-action="Edit" asp-route-id="@Model.BookingID" class="btn btn-dark rounded-pill px-4 fw-bold">Edit Schedule</a>
+                        <button onclick="window.print()" class="btn btn-outline-primary rounded-pill px-4 fw-bold">
+                            <i class="bi bi-printer me-2"></i>Print Receipt
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

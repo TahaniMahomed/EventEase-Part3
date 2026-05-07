@@ -1,0 +1,79 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: Bootstrap Badge & Icon Implementation
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://icons.getbootstrap.com/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Relational Data Display (Details View)
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/details
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Danger Zone UI Patterns
+AUTHOR: UX StackExchange Contributors
+DATE: 7 May 2026
+VERSION: Community Best Practices
+AVAILABLE: https://ux.stackexchange.com/questions/112520/best-practices-for-danger-zone-confirmations
+*@
+@model Event_Ease2.Models.Venue
+
+@{
+    ViewData["Title"] = "Delete Venue";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="bg-danger py-4 text-center text-white">
+                    <i class="bi bi-exclamation-triangle-fill display-4"></i>
+                    <h2 class="fw-bold mt-2 mb-0">Remove Venue?</h2>
+                </div>
+
+                <div class="card-body p-4 p-md-5 text-center">
+                    <p class="text-muted mb-4 fs-5">
+                        You are about to permanently remove <span class="fw-bold text-dark">@Model.VenueName</span> from the platform. This action cannot be undone.
+                    </p>
+
+                    <div class="bg-soft rounded-4 p-3 mb-4 border">
+                        <div class="d-flex align-items-center justify-content-center gap-3">
+                            @if (!string.IsNullOrEmpty(Model.ImageURL))
+                            {
+                                <img src="@Model.ImageURL" class="rounded-3 object-fit-cover" style="width: 60px; height: 60px;" />
+                            }
+                            <div class="text-start">
+                                <h6 class="mb-0 fw-bold">@Model.VenueName</h6>
+                                <small class="text-muted">@Model.VenueLocation</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="VenueID" />
+                        <div class="d-grid gap-3">
+                            <button type="submit" class="btn btn-danger btn-lg rounded-pill fw-bold py-3 shadow-sm transition-all">
+                                Yes, Delete Listing
+                            </button>
+                            <a asp-action="Index" class="btn btn-light btn-lg rounded-pill fw-bold py-3 border">
+                                No, Keep Venue
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p class="text-muted small">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Deleting this venue will also cancel any associated active bookings.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

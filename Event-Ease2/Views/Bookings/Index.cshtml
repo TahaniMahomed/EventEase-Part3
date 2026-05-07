@@ -1,0 +1,192 @@
+﻿@*S!--CODE ATTRIBUTION
+TITLE: Bootstrap Documentation: Input Groups
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/components/input-group/
+*@
+@* S!--CODE ATTRIBUTION
+TITLE: Bootstrap Grid System
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/layout/grid/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Professional Card UI Design
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/components/card/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Visual Hierarchy in Dashboard Design
+AUTHOR: Nielsen Norman Group
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://www.nngroup.com/articles/visual-hierarchy/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: YouTube - Building Responsive Grids in MVC
+AUTHOR: YouTube Channel (Responsive MVC Tutorials)
+DATE: 7 May 2026
+VERSION: Video Tutorial
+AVAILABLE: https://www.youtube.com/watch?v=aG_itG_p3N8
+*@
+
+
+@model IEnumerable<Event_Ease2.Models.Booking>
+
+@{
+    ViewData["Title"] = "Manage Bookings";
+}
+
+<div class="container py-5">
+    <div class="row mb-5 align-items-center">
+        <div class="col-md-7">
+            <h1 class="display-5 fw-bold text-dark" style="letter-spacing: -1.5px;">
+                My <span class="text-primary">Reservations</span>
+            </h1>
+            <p class="text-muted fs-5">Manage your upcoming event schedules and venue details in one place.</p>
+        </div>
+        <div class="col-md-5 text-md-end">
+            <a asp-action="Create" class="btn btn-primary btn-lg shadow-sm px-4 rounded-3 fw-bold transition-all">
+                <i class="bi bi-calendar-plus me-2"></i>New Reservation
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-12">
+            <div class="card border-0 shadow-sm rounded-4 p-2 bg-white">
+                <form asp-controller="Bookings" asp-action="Index" method="get" class="row g-2 align-items-center">
+                    <div class="col-md-9">
+                        <div class="input-group border-0">
+                            <span class="input-group-text bg-transparent border-0 text-muted ps-3">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" name="searchString" class="form-control border-0 shadow-none"
+                                   placeholder="Search by event name or reference ID..."
+                                   value="@Context.Request.Query["searchString"]">
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <button class="btn btn-dark w-100 rounded-3 fw-bold py-2" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+            @if (!string.IsNullOrEmpty(Context.Request.Query["searchString"]))
+            {
+                <div class="mt-3 ps-2">
+                    <a asp-action="Index" class="btn btn-light btn-sm rounded-pill border px-3 text-muted fw-medium">
+                        <i class="bi bi-x-lg me-1"></i> Clear Search
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            @foreach (var item in Model)
+            {
+                <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden transition-all booking-card">
+                    <div class="row g-0">
+                        <div class="col-md-2 bg-soft d-flex flex-column align-items-center justify-content-center border-end py-4">
+                            <span class="text-uppercase small fw-bold text-muted mb-1" style="letter-spacing: 1px;">Booking ID</span>
+                            <span class="badge bg-white text-dark border px-2 py-1 mb-3 rounded-2 small shadow-xs">#@item.BookingID</span>
+                            <h3 class="fw-bold text-dark mb-0">@item.BookingDate.ToString("dd")</h3>
+                            <span class="fw-medium text-primary text-uppercase" style="font-size: 0.85rem;">@item.BookingDate.ToString("MMM yyyy")</span>
+                        </div>
+
+                        <div class="col-md-7 p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="badge bg-success-soft text-success me-3 px-3 py-2 rounded-pill fw-bold">
+                                    <i class="bi bi-patch-check-fill me-1"></i> Confirmed
+                                </span>
+                                <h4 class="fw-bold mb-0 text-dark">@item.Event.EventName</h4>
+                            </div>
+
+                            <p class="text-muted mb-4 d-flex align-items-center">
+                                <i class="bi bi-geo-alt text-danger me-2"></i> @item.Venue.VenueName
+                            </p>
+
+                            <div class="row g-3">
+                                <div class="col-auto">
+                                    <div class="bg-white border rounded-3 px-3 py-2">
+                                        <small class="text-muted d-block fw-bold text-uppercase" style="font-size: 0.65rem;">Check In</small>
+                                        <span class="fw-semibold text-dark">@item.StartDate.ToString("MMM dd, yyyy")</span>
+                                    </div>
+                                </div>
+                                <div class="col-auto d-flex align-items-center">
+                                    <i class="bi bi-arrow-right text-muted"></i>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="bg-white border rounded-3 px-3 py-2">
+                                        <small class="text-muted d-block fw-bold text-uppercase" style="font-size: 0.65rem;">Check Out</small>
+                                        <span class="fw-semibold text-dark">@item.EndDate.ToString("MMM dd, yyyy")</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center justify-content-center bg-white p-4">
+                            <div class="d-flex flex-column gap-2 w-100">
+                                <a asp-action="Details" asp-route-id="@item.BookingID" class="btn btn-outline-primary fw-bold rounded-3 py-2">
+                                    View Receipt
+                                </a>
+                                <div class="d-flex gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.BookingID" class="btn btn-light border flex-grow-1 rounded-3 py-2" title="Edit Date">
+                                        <i class="bi bi-pencil-square text-warning"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.BookingID" class="btn btn-light border flex-grow-1 rounded-3 py-2" title="Cancel Booking">
+                                        <i class="bi bi-trash3 text-danger"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5 bg-white rounded-4 border border-dashed shadow-sm">
+                    <div class="bg-soft rounded-circle d-inline-flex p-4 mb-3">
+                        <i class="bi bi-calendar-x text-muted display-4"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark">No Bookings Yet</h3>
+                    <p class="text-muted mx-auto" style="max-width: 400px;">You haven't made any reservations. Explore our venues to find the perfect space for your next event.</p>
+                    <a asp-controller="Venues" asp-action="Index" class="btn btn-primary rounded-pill px-4 fw-bold">Explore Venues</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Status Badge Refinement */
+    .bg-success-soft {
+        background-color: #ecfdf5;
+        color: #059669;
+    }
+
+    .border-dashed {
+        border-style: dashed !important;
+        border-width: 2px !important;
+        border-color: #e2e8f0 !important;
+    }
+
+    /* Booking Card Specific Hover */
+    .booking-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .shadow-xs {
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+</style>

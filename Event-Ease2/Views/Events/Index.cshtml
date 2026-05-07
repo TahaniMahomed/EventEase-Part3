@@ -1,0 +1,141 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: Bootstrap Grid System
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/layout/grid/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Professional Card UI Design
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/components/card/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Visual Hierarchy in Dashboard Design
+AUTHOR: Nielsen Norman Group
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://www.nngroup.com/articles/visual-hierarchy/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: YouTube - Building Responsive Grids in MVC
+AUTHOR: YouTube Channel (Responsive MVC Tutorials)
+DATE: 7 May 2026
+VERSION: Video Tutorial
+AVAILABLE: https://www.youtube.com/watch?v=aG_itG_p3N8
+*@
+
+@model IEnumerable<Event_Ease2.Models.Event>
+
+@{
+    ViewData["Title"] = "Event Gallery";
+}
+
+<div class="container py-5">
+    <div class="row mb-5 align-items-center">
+        <div class="col-md-7">
+            <h1 class="display-5 fw-bold text-dark" style="letter-spacing: -1.5px;">
+                Event <span class="text-primary">Portfolio</span>
+            </h1>
+            <p class="text-muted fs-5">Define your event categories and descriptions to begin booking venues.</p>
+        </div>
+        <div class="col-md-5 text-md-end">
+            <a asp-action="Create" class="btn btn-primary btn-lg shadow-sm px-4 rounded-3 fw-bold transition-all">
+                <i class="bi bi-plus-circle me-2"></i>Create New Event
+            </a>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden transition-all event-card bg-white">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <div class="icon-box bg-soft-primary rounded-3 text-primary">
+                                <i class="bi bi-balloon-heart-fill fs-4"></i>
+                            </div>
+                            <span class="badge bg-light text-muted border px-2 py-1 small">Ref #@item.EventID</span>
+                        </div>
+
+                        <h4 class="fw-bold text-dark mb-2">@item.EventName</h4>
+
+                        <p class="text-muted mb-4 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 4.5em; line-height: 1.6;">
+                            @(string.IsNullOrEmpty(item.EventDescription) ? "No description provided for this event category." : item.EventDescription)
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-auto">
+                            <a asp-action="Details" asp-route-id="@item.EventID" class="btn btn-link p-0 text-decoration-none fw-bold text-primary">
+                                View Brief <i class="bi bi-arrow-right small ms-1"></i>
+                            </a>
+
+                            <div class="d-flex gap-1">
+                                <a asp-action="Edit" asp-route-id="@item.EventID" class="btn btn-light btn-sm rounded-2 border shadow-xs" title="Edit">
+                                    <i class="bi bi-pencil-square text-warning"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.EventID" class="btn btn-light btn-sm rounded-2 border shadow-xs" title="Delete">
+                                    <i class="bi bi-trash3 text-danger"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5 mt-5">
+            <div class="bg-soft d-inline-flex rounded-circle p-4 mb-4">
+                <i class="bi bi-calendar-x display-3 text-muted opacity-50"></i>
+            </div>
+            <h3 class="fw-bold text-dark">Your portfolio is empty</h3>
+            <p class="text-muted mx-auto mb-4" style="max-width: 400px;">
+                You haven't defined any event types yet. Create one to start assigning venues and dates.
+            </p>
+            <a asp-action="Create" class="btn btn-dark rounded-pill px-5 fw-bold shadow-sm py-3">
+                Create Your First Event
+            </a>
+        </div>
+    }
+</div>
+
+<style>
+    .bg-soft-primary {
+        background-color: #f0f7ff;
+    }
+
+    .icon-box {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .event-card {
+        border: 1px solid transparent !important;
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important;
+            border-color: #e2e8f0 !important;
+        }
+
+    .shadow-xs {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .bg-soft {
+        background-color: #f8fafc;
+    }
+</style>

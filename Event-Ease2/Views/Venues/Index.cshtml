@@ -1,0 +1,161 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: Bootstrap Grid System
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/layout/grid/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Professional Card UI Design
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/components/card/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Visual Hierarchy in Dashboard Design
+AUTHOR: Nielsen Norman Group
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://www.nngroup.com/articles/visual-hierarchy/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: YouTube - Building Responsive Grids in MVC
+AUTHOR: YouTube Channel (Responsive MVC Tutorials)
+DATE: 7 May 2026
+VERSION: Video Tutorial
+AVAILABLE: https://www.youtube.com/watch?v=aG_itG_p3N8
+*@
+
+@model IEnumerable<Event_Ease2.Models.Venue>
+
+@{
+    ViewData["Title"] = "Explore Venues";
+}
+
+<div class="container py-5">
+    <div class="row mb-5 align-items-center">
+        <div class="col-lg-5 mb-4 mb-lg-0">
+            <h1 class="display-5 fw-bold text-dark mb-1" style="letter-spacing: -1.5px;">Explore <span class="text-primary">Venues</span></h1>
+            <p class="text-muted fs-5">Premium spaces curated for unforgettable experiences.</p>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4 p-2 bg-white">
+                <form asp-action="Index" method="get" class="row g-2 align-items-center">
+                    <div class="col-md-8">
+                        <div class="input-group input-group-lg border-0">
+                            <span class="input-group-text bg-transparent border-0 text-muted ps-3">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" name="searchString" class="form-control border-0 shadow-none fs-6"
+                                   placeholder="Search by venue name or city..."
+                                   value="@ViewData["CurrentFilter"]" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <button class="btn btn-primary btn-lg w-100 rounded-3 fw-bold transition-all" type="submit">
+                            Find Space
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="fw-bold mb-0 text-slate">Available Listings (@Model.Count())</h5>
+        <a asp-action="Create" class="btn btn-dark shadow-sm px-4 rounded-3 fw-semibold">
+            <i class="bi bi-plus-lg me-2"></i>List Your Venue
+        </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden venue-card transition-all">
+                    <div class="position-relative overflow-hidden" style="height: 240px;">
+                        @if (!string.IsNullOrEmpty(item.ImageURL))
+                        {
+                            <img src="@item.ImageURL" class="w-100 h-100 object-fit-cover img-zoom" alt="@item.VenueName">
+                        }
+                        else
+                        {
+                            <div class="bg-soft w-100 h-100 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-building text-secondary opacity-25" style="font-size: 4rem;"></i>
+                            </div>
+                        }
+
+                        <div class="position-absolute top-0 end-0 m-3">
+                            <span class="badge bg-white text-dark shadow-sm px-3 py-2 rounded-pill fw-bold border">
+                                <i class="bi bi-people-fill text-primary me-1"></i> @item.VenueCapacity
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h4 class="fw-bold text-dark mb-0">@item.VenueName</h4>
+                        </div>
+                        <p class="text-muted mb-4 small d-flex align-items-center">
+                            <i class="bi bi-geo-alt text-danger me-2"></i> @item.VenueLocation
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center border-top pt-3 mt-auto">
+                            <a asp-action="Details" asp-route-id="@item.VenueID" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold">
+                                View Profile
+                            </a>
+                            <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@item.VenueID" class="btn btn-light btn-sm rounded-circle me-2 p-2 shadow-sm" title="Edit">
+                                    <i class="bi bi-pencil-square text-primary"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.VenueID" class="btn btn-light btn-sm rounded-circle p-2 shadow-sm" title="Delete">
+                                    <i class="bi bi-trash3 text-danger"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5 mt-5 bg-white rounded-4 shadow-sm border">
+            <div class="bg-soft rounded-circle d-inline-flex p-4 mb-3">
+                <i class="bi bi-search text-primary display-4"></i>
+            </div>
+            <h3 class="fw-bold text-dark">No Venues Found</h3>
+            <p class="text-muted">We couldn't find any spaces matching your current search criteria.</p>
+            <a asp-action="Index" class="btn btn-primary rounded-pill px-4 mt-2 fw-bold">View All Venues</a>
+        </div>
+    }
+</div>
+
+<style>
+    /* Professional Image Zoom Effect */
+    .venue-card .img-zoom {
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .venue-card:hover .img-zoom {
+        transform: scale(1.1);
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+
+    /* Action bar title */
+    .text-slate {
+        color: #475569;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>

@@ -1,0 +1,109 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: Bootstrap Badge & Icon Implementation
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://icons.getbootstrap.com/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Relational Data Display (Details View)
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/details
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Danger Zone UI Patterns
+AUTHOR: UX StackExchange Contributors
+DATE: 7 May 2026
+VERSION: Community Best Practices
+AVAILABLE: https://ux.stackexchange.com/questions/112520/best-practices-for-danger-zone-confirmations
+*@
+
+@model Event_Ease2.Models.Event
+
+@{
+    ViewData["Title"] = Model.EventName + " - Details";
+}
+
+<div class="container py-5">
+    <nav class="mb-4">
+        <a asp-action="Index" class="text-decoration-none text-muted fw-medium hover-underline">
+            <i class="bi bi-arrow-left me-2"></i>Back to Events List
+        </a>
+    </nav>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
+                <div class="bg-dark p-5 text-white position-relative">
+                    <div class="position-relative z-1">
+                        <span class="badge bg-primary px-3 py-2 rounded-pill mb-3 text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;">Event Overview</span>
+                        <h1 class="display-4 fw-bold mb-0" style="letter-spacing: -2px;">@Model.EventName</h1>
+                    </div>
+                    <i class="bi bi-calendar-event position-absolute end-0 bottom-0 mb-n3 me-n2 text-white opacity-10" style="font-size: 12rem;"></i>
+                </div>
+
+                <div class="card-body p-4 p-md-5 bg-white">
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-8">
+                            <h5 class="fw-bold text-dark mb-3 border-bottom pb-2">Description</h5>
+                            <p class="text-muted lead" style="line-height: 1.8;">
+                                @(string.IsNullOrEmpty(Model.EventDescription) ? "No description has been provided for this event yet." : Model.EventDescription)
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-soft rounded-4 p-4">
+                                <h6 class="fw-bold text-dark small text-uppercase mb-3">Event Stats</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-white rounded-circle p-2 shadow-sm me-3">
+                                        <i class="bi bi-hash text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <small class="text-muted d-block">Reference</small>
+                                        <span class="fw-bold">#@Model.EventID</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-white rounded-circle p-2 shadow-sm me-3">
+                                        <i class="bi bi-check2-circle text-success"></i>
+                                    </div>
+                                    <div>
+                                        <small class="text-muted d-block">Status</small>
+                                        <span class="fw-bold">Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-3 pt-4 border-top">
+                        <a asp-action="Edit" asp-route-id="@Model?.EventID" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">
+                            <i class="bi bi-pencil-square me-2"></i>Edit Event Details
+                        </a>
+                        <a asp-controller="Bookings" asp-action="Create" class="btn btn-outline-dark rounded-pill px-4 fw-bold">
+                            <i class="bi bi-calendar-check me-2"></i>Link to Venue
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft {
+        background-color: #f8fafc;
+    }
+
+    .hover-underline:hover {
+        text-decoration: underline !important;
+        color: #0ea5e9 !important;
+    }
+
+    .z-1 {
+        z-index: 1;
+    }
+</style>

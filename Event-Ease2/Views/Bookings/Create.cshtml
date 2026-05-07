@@ -1,0 +1,150 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: ASP.NET Core Form Tag Helpers
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Floating Labels Documentation
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/forms/floating-labels/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Client-Side Validation in MVC
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: UX Best Practices for Forms
+AUTHOR: UX Collective (UXDesign.cc)
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://uxdesign.cc/the-ultimate-guide-to-form-design-bb7089b0365c
+*@
+
+@model Event_Ease2.Models.Booking
+
+@{
+    ViewData["Title"] = "New Reservation";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="mb-5">
+                <h1 class="fw-bold text-dark" style="letter-spacing: -1.5px;">Secure Your <span class="text-primary">Space</span></h1>
+                <p class="text-muted fs-5">Fill in the event details below to finalize your reservation.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-7">
+                    <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 rounded-3 small mb-4"></div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="StartDate" class="form-control border-0 bg-soft shadow-none" type="datetime-local" />
+                                        <label asp-for="StartDate">Event Starts</label>
+                                        <span asp-validation-for="StartDate" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="EndDate" class="form-control border-0 bg-soft shadow-none" type="datetime-local" />
+                                        <label asp-for="EndDate">Event Ends</label>
+                                        <span asp-validation-for="EndDate" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <select asp-for="VenueID" class="form-select border-0 bg-soft shadow-none" asp-items="ViewBag.VenueID">
+                                    <option value="" disabled selected>Select a Venue</option>
+                                </select>
+                                <label asp-for="VenueID">Target Venue</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <select asp-for="EventID" class="form-select border-0 bg-soft shadow-none" asp-items="ViewBag.EventID">
+                                    <option value="" disabled selected>Assign to Event</option>
+                                </select>
+                                <label asp-for="EventID">Associated Event</label>
+                            </div>
+
+                            <div class="d-grid gap-3 pt-3">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold py-3 shadow-sm transition-all">
+                                    Confirm Reservation
+                                </button>
+                                <a asp-action="Index" class="btn btn-link text-muted text-decoration-none small">
+                                    <i class="bi bi-arrow-left me-1"></i> Cancel and go back
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="card border-0 bg-dark text-white rounded-4 p-4 mb-4 shadow-sm">
+                        <h5 class="fw-bold text-primary mb-3"><i class="bi bi-info-circle me-2"></i>Booking Policy</h5>
+                        <ul class="list-unstyled small opacity-75 mb-0">
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                                <span>Check-in and Check-out times must include your setup and cleanup duration.</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                                <span>Venue availability is subject to real-time verification upon submission.</span>
+                            </li>
+                            <li class="d-flex align-items-start">
+                                <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                                <span>Changes can be made up to 48 hours before the start date via the dashboard.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card border-0 shadow-sm rounded-4 p-4 text-center">
+                        <div class="bg-soft rounded-circle d-inline-flex p-3 mx-auto mb-3">
+                            <i class="bi bi-shield-lock-fill text-primary fs-3"></i>
+                        </div>
+                        <h6 class="fw-bold">Secure Booking</h6>
+                        <p class="text-muted small mb-0">Your data is protected. By confirming, you agree to the EventEase terms of service.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Styling select arrows and focus states to match inputs */
+    .form-select {
+        cursor: pointer;
+    }
+
+    .form-floating > .form-control:focus,
+    .form-floating > .form-select:focus {
+        background-color: #ffffff !important;
+        border: 1px solid #0ea5e9 !important;
+        box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1) !important;
+    }
+
+    .bg-soft {
+        background-color: #f8fafc;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

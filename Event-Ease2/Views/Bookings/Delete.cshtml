@@ -1,0 +1,66 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: Bootstrap Badge & Icon Implementation
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://icons.getbootstrap.com/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Relational Data Display (Details View)
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/details
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Danger Zone UI Patterns
+AUTHOR: UX StackExchange Contributors
+DATE: 7 May 2026
+VERSION: Community Best Practices
+AVAILABLE: https://ux.stackexchange.com/questions/112520/best-practices-for-danger-zone-confirmations
+*@
+
+@model Event_Ease2.Models.Booking
+
+@{
+    ViewData["Title"] = "Cancel Booking";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden text-center">
+                <div class="bg-danger-soft py-4">
+                    <i class="bi bi-calendar-x text-danger display-3"></i>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <h3 class="fw-bold text-dark">Cancel Reservation?</h3>
+                    <p class="text-muted mb-4">
+                        Are you sure you want to cancel the booking for <br>
+                        <strong class="text-dark">@Model.Event.EventName</strong> at <strong class="text-dark">@Model.Venue.VenueName</strong>?
+                    </p>
+
+                    <div class="alert alert-warning border-0 small rounded-3 mb-4">
+                        <i class="bi bi-info-circle me-2"></i> This action will release the venue for other users.
+                    </div>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="BookingID" />
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger btn-lg rounded-pill fw-bold py-3">Confirm Cancellation</button>
+                            <a asp-action="Index" class="btn btn-light btn-lg rounded-pill border py-3">Keep My Booking</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-danger-soft {
+        background-color: #fef2f2;
+    }
+</style>

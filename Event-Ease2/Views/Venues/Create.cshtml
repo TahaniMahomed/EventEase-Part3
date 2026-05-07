@@ -1,0 +1,119 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: ASP.NET Core Form Tag Helpers
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Floating Labels Documentation
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/forms/floating-labels/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Client-Side Validation in MVC
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: UX Best Practices for Forms
+AUTHOR: UX Collective (UXDesign.cc)
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://uxdesign.cc/the-ultimate-guide-to-form-design-bb7089b0365c
+*@
+
+@model Event_Ease2.Models.Venue
+
+@{
+    ViewData["Title"] = "List a New Venue";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8 text-center">
+            <h1 class="fw-bold text-dark" style="letter-spacing: -1px;">List Your <span class="text-primary">Venue</span></h1>
+            <p class="text-muted">Fill in the details below to showcase your space to our community.</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 rounded-3 shadow-sm mb-4" role="alert"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="VenueName" class="form-control border-0 bg-soft shadow-none" placeholder="e.g. Grand Ballroom" />
+                        <label asp-for="VenueName" class="text-muted">Venue Name</label>
+                        <span asp-validation-for="VenueName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="VenueLocation" class="form-control border-0 bg-soft shadow-none" placeholder="City or Full Address" />
+                        <label asp-for="VenueLocation" class="text-muted">Location</label>
+                        <span asp-validation-for="VenueLocation" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="VenueCapacity" class="form-control border-0 bg-soft shadow-none" placeholder="100" />
+                        <label asp-for="VenueCapacity" class="text-muted">Max Capacity</label>
+                        <span asp-validation-for="VenueCapacity" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-dark fw-semibold small mb-2"><i class="bi bi-image me-1"></i> Venue Cover Image</label>
+                        <div class="input-group">
+                            <input type="file" name="imageFile" class="form-control border-0 bg-soft shadow-none rounded-3 py-2" accept="image/*" />
+                        </div>
+                        <div class="form-text d-flex align-items-center mt-2">
+                            <i class="bi bi-info-circle me-1 text-primary"></i>
+                            <span>This will be securely stored in Azure Blob Storage</span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-3 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm py-3 transition-all">
+                            Publish Listing
+                        </button>
+                        <a asp-action="Index" class="btn btn-link text-muted text-decoration-none small">
+                            Cancel and Return
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Floating labels styling override */
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+        color: #0ea5e9;
+        font-weight: 600;
+    }
+
+    .form-control {
+        transition: all 0.2s ease-in-out;
+    }
+
+        .form-control:focus {
+            background-color: #ffffff !important;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1) !important;
+            border: 1px solid #0ea5e9 !important;
+        }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

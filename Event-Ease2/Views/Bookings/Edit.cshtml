@@ -1,0 +1,78 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: ASP.NET Core Form Tag Helpers
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Floating Labels Documentation
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/forms/floating-labels/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Client-Side Validation in MVC
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: UX Best Practices for Forms
+AUTHOR: UX Collective (UXDesign.cc)
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://uxdesign.cc/the-ultimate-guide-to-form-design-bb7089b0365c
+*@
+
+@model Event_Ease2.Models.Booking
+
+@{
+    ViewData["Title"] = "Edit Booking";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5">
+                <h2 class="fw-bold text-dark mb-4" style="letter-spacing: -1px;">Modify <span class="text-primary">Reservation</span></h2>
+
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+                    <input type="hidden" asp-for="BookingID" />
+                    <input type="hidden" asp-for="BookingDate" />
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="StartDate" class="form-control border-0 bg-soft shadow-none" type="datetime-local" />
+                        <label asp-for="StartDate">New Start Date</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="EndDate" class="form-control border-0 bg-soft shadow-none" type="datetime-local" />
+                        <label asp-for="EndDate">New End Date</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select asp-for="VenueID" class="form-select border-0 bg-soft shadow-none" asp-items="ViewBag.VenueID"></select>
+                        <label asp-for="VenueID">Venue</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <select asp-for="EventID" class="form-select border-0 bg-soft shadow-none" asp-items="ViewBag.EventID"></select>
+                        <label asp-for="EventID">Event</label>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm py-3">Save Changes</button>
+                        <a asp-action="Index" class="btn btn-link text-muted">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

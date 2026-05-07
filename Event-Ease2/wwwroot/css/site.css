@@ -1,0 +1,121 @@
+@* S!--CODE ATTRIBUTION
+TITLE: CSS Transitions Guide
+AUTHOR: Mozilla Developer Network (MDN)
+DATE: 7 May 2026
+VERSION: CSS Transitions Documentation
+AVAILABLE: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: CSS Shadow Generator (UI Inspiration)
+AUTHOR: GetCSSScan Team
+DATE: 7 May 2026
+VERSION: CSS Box-Shadow Examples
+AVAILABLE: https://getcssscan.com/css-box-shadow-examples
+*@
+
+/* --- EventEase Professional Theme --- */
+
+:root {
+    --primary-blue: #0ea5e9;
+    --dark-slate: #0f172a;
+    --border-soft: rgba(0, 0, 0, 0.08);
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Transitions for the "Pop" Effect */
+.transition-all {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card Improvements (The Pop-Up) */
+.card, .booking-item, .venue-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--border-soft) !important;
+    background-color: #ffffff;
+}
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03) !important;
+        border-color: var(--primary-blue) !important;
+    }
+
+/* Professional Button Styles */
+.btn-primary {
+    background-color: var(--primary-blue);
+    border: none;
+    transition: all 0.2s ease;
+}
+
+    .btn-primary:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    }
+
+.btn-dark:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+/* Navbar Interactive Underlines */
+.nav-link {
+    position: relative;
+    transition: color 0.2s ease;
+    color: #475569 !important;
+}
+
+    .nav-link:hover {
+        color: var(--primary-blue) !important;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 5px;
+        left: 50%;
+        background-color: var(--primary-blue);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after {
+        width: 60%;
+    }
+
+/* Footer link hovers */
+.hover-white:hover {
+    color: #ffffff !important;
+    padding-left: 5px;
+    transition: all 0.2s ease;
+}
+
+/* Rounded borders for inputs */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    padding: 0.6rem 1rem;
+}
+
+    .form-control:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+
+/* Badge Styling */
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* Custom Background Utility */
+.bg-soft {
+    background-color: #f1f5f9;
+}

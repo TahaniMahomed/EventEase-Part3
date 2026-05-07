@@ -1,0 +1,108 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: ASP.NET Core Form Tag Helpers
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Floating Labels Documentation
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/forms/floating-labels/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Client-Side Validation in MVC
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: UX Best Practices for Forms
+AUTHOR: UX Collective (UXDesign.cc)
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://uxdesign.cc/the-ultimate-guide-to-form-design-bb7089b0365c
+*@
+
+@model Event_Ease2.Models.Event
+
+@{
+    ViewData["Title"] = "Start a New Event";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center">
+            <div class="bg-soft rounded-circle d-inline-flex p-3 mb-3">
+                <i class="bi bi-calendar-plus text-primary fs-2"></i>
+            </div>
+            <h1 class="fw-bold text-dark" style="letter-spacing: -1.5px;">Create an <span class="text-primary">Event</span></h1>
+            <p class="text-muted fs-5">Give your gathering a name and a story to get started.</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 rounded-3 small mb-4"></div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="EventName" class="form-control border-0 bg-soft shadow-none fw-bold" placeholder="e.g. Annual Tech Symposium" style="font-size: 1.1rem;" />
+                        <label asp-for="EventName" class="text-muted">What is the event called?</label>
+                        <span asp-validation-for="EventName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <textarea asp-for="EventDescription" class="form-control border-0 bg-soft shadow-none" placeholder="Describe your event..." style="height: 150px;"></textarea>
+                        <label asp-for="EventDescription" class="text-muted">Tell us more about it</label>
+                        <span asp-validation-for="EventDescription" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid gap-3 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold py-3 shadow-sm transition-all">
+                            Initialize Event
+                        </button>
+                        <a asp-action="Index" class="btn btn-link text-muted text-decoration-none small">
+                            <i class="bi bi-arrow-left me-1"></i> Cancel and return to list
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mt-4 text-center">
+                <p class="small text-muted">
+                    <i class="bi bi-lightbulb text-warning me-1"></i>
+                    <strong>Pro Tip:</strong> You can link this event to a specific venue in the <strong>Bookings</strong> section later.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft {
+        background-color: #f1f5f9;
+    }
+
+    textarea.form-control {
+        resize: none;
+    }
+
+    .form-floating > .form-control:focus ~ label {
+        color: #0ea5e9;
+        font-weight: 600;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

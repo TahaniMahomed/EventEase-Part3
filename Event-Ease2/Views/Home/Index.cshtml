@@ -1,0 +1,120 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: Microsoft Azure Storage (Blob) Research
+AUTHOR: Microsoft Azure Team
+DATE: 7 May 2026
+VERSION: Azure Storage Documentation
+AVAILABLE: https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: GDPR/Privacy Policy Design Guide
+AUTHOR: PrivacyPolicies.com Editorial Team
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://www.privacypolicies.com/blog/privacy-policy-template/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Clean Modern Landing Page Trends
+AUTHOR: Awwwards Editorial Team
+DATE: 7 May 2026
+VERSION: Web Design Trends
+AVAILABLE: https://www.awwwards.com/websites/clean/
+*@
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-fluid px-0">
+    <div class="row align-items-center g-0 mb-5 bg-white rounded-4 overflow-hidden shadow-sm border">
+        <div class="col-lg-6 p-5 p-md-5">
+            <div class="pe-lg-5">
+                <span class="badge bg-soft text-primary px-3 py-2 rounded-pill mb-3 fw-bold text-uppercase border">Premium Venue Management</span>
+                <h1 class="display-3 fw-bold text-dark mb-4" style="letter-spacing: -2px; line-height: 1.1;">
+                    Planning an <span class="text-primary">Event?</span> We've got the space.
+                </h1>
+                <p class="lead text-muted mb-5 fs-5">
+                    From high-end networking halls to creative studios, find and book the perfect venue in seconds.
+                    No more manual paper trails—just seamless, professional event management.
+                </p>
+                <div class="d-flex gap-3">
+                    <a asp-controller="Venues" asp-action="Index" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold shadow">
+                        Explore Venues
+                    </a>
+                    <a asp-controller="Bookings" asp-action="Index" class="btn btn-outline-dark btn-lg px-5 py-3 rounded-pill fw-bold">
+                        Manage Bookings
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="position-relative" style="height: 600px;">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"
+                     class="img-fluid w-100 h-100 object-fit-cover"
+                     alt="Modern Professional Event Space" />
+                <div class="position-absolute bottom-0 start-0 m-4 p-3 bg-white shadow-lg rounded-3 border d-none d-md-flex align-items-center gap-3 animate-bounce">
+                    <div class="bg-success text-white rounded-circle p-2">
+                        <i class="bi bi-check2-circle fs-4"></i>
+                    </div>
+                    <div>
+                        <small class="text-muted d-block">System Status</small>
+                        <span class="fw-bold">Reservations Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 text-center py-5">
+        <div class="col-md-4">
+            <div class="card p-4 h-100 border-0 shadow-sm rounded-4">
+                <div class="bg-soft text-primary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                    <i class="bi bi-shield-check fs-2"></i>
+                </div>
+                <h4 class="fw-bold">Easy Booking</h4>
+                <p class="text-muted">Intuitive reservation system with real-time availability checks.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4 h-100 border-0 shadow-sm rounded-4">
+                <div class="bg-soft text-primary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                    <i class="bi bi-cloud-arrow-up fs-2"></i>
+                </div>
+                <h4 class="fw-bold">Cloud Storage</h4>
+                <p class="text-muted">Securely store and manage all your event documents in one place.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4 h-100 border-0 shadow-sm rounded-4">
+                <div class="bg-soft text-primary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                    <i class="bi bi-calendar3 fs-2"></i>
+                </div>
+                <h4 class="fw-bold">Smart Tracking</h4>
+                <p class="text-muted">Keep track of your upcoming events with automated calendar sync.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .object-fit-cover {
+        object-fit: cover;
+    }
+
+    /* Subtle bounce for the status card */
+    .animate-bounce {
+        animation: bounce 3s infinite;
+    }
+
+    @@keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+</style>

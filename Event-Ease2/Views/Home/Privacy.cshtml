@@ -1,0 +1,137 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: Microsoft Azure Storage (Blob) Research
+AUTHOR: Microsoft Azure Team
+DATE: 7 May 2026
+VERSION: Azure Storage Documentation
+AVAILABLE: https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: GDPR/Privacy Policy Design Guide
+AUTHOR: PrivacyPolicies.com Editorial Team
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://www.privacypolicies.com/blog/privacy-policy-template/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Clean Modern Landing Page Trends
+AUTHOR: Awwwards Editorial Team
+DATE: 7 May 2026
+VERSION: Web Design Trends
+AVAILABLE: https://www.awwwards.com/websites/clean/
+*@
+
+@model dynamic
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="bg-primary p-5 text-white position-relative" style="background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);">
+                    <div class="position-relative z-1">
+                        <div class="bg-white rounded-circle d-inline-flex p-3 mb-4 shadow-sm">
+                            <i class="bi bi-shield-lock-fill text-primary fs-2"></i>
+                        </div>
+                        <h1 class="display-5 fw-bold mb-2">@ViewData["Title"]</h1>
+                        <p class="lead mb-0 opacity-75">Your trust is our priority. Learn how EventEase protects your data.</p>
+                    </div>
+                    <i class="bi bi-shield-check position-absolute end-0 bottom-0 mb-n4 me-n3 text-white opacity-10" style="font-size: 15rem;"></i>
+                </div>
+
+                <div class="card-body p-4 p-md-5 bg-white">
+                    <div class="row g-5">
+                        <div class="col-md-8">
+                            <section class="mb-5">
+                                <h3 class="fw-bold text-dark mb-3">1. Introduction</h3>
+                                <p class="text-muted lh-lg">
+                                    At <strong>EventEase</strong>, we are committed to protecting your personal information and your right to privacy.
+                                    This policy explains how we collect, use, and safeguard your data when you interact with our venue management system.
+                                    By using our service, you agree to the terms outlined in this document.
+                                </p>
+                            </section>
+
+                            <section class="mb-5">
+                                <h3 class="fw-bold text-dark mb-3">2. Data We Collect</h3>
+                                <div class="bg-soft rounded-4 p-4 mb-3 border">
+                                    <div class="d-flex gap-3 mb-3">
+                                        <i class="bi bi-image text-primary fs-4"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Visual Assets</h6>
+                                            <p class="small text-muted mb-0">Venue photos are stored securely using Azure Blob Storage and are only used for listing displays.</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-3 mb-3">
+                                        <i class="bi bi-server text-primary fs-4"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Structural Data</h6>
+                                            <p class="small text-muted mb-0">Venue names, locations, and capacities are stored in encrypted SQL databases.</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-3">
+                                        <i class="bi bi-person-badge text-primary fs-4"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Account Information</h6>
+                                            <p class="small text-muted mb-0">We collect basic identity data to manage your bookings and event history.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="mb-5">
+                                <h3 class="fw-bold text-dark mb-3">3. Security Infrastructure</h3>
+                                <p class="text-muted lh-lg">
+                                    We implement industry-standard security measures, including <strong>SSL encryption</strong> and secure local emulators (Azurite) during development.
+                                    Our backend is designed to prevent unauthorized access and ensure your event details remain confidential.
+                                </p>
+                            </section>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card border-0 bg-light rounded-4 p-4 sticky-top" style="top: 2rem;">
+                                <h5 class="fw-bold mb-3">Quick Links</h5>
+                                <ul class="list-unstyled small">
+                                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Data Usage</a></li>
+                                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Cookie Policy</a></li>
+                                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Terms of Service</a></li>
+                                </ul>
+                                <hr>
+                                <h6 class="fw-bold small text-uppercase text-primary mb-3">Questions?</h6>
+                                <p class="small text-muted mb-3">Need clarity on how we use your data?</p>
+                                <a href="mailto:support@eventease.com" class="btn btn-dark w-100 rounded-pill fw-bold btn-sm py-2">Contact Support</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-5 pt-4 border-top">
+                        <p class="text-muted small mb-3">Last updated: May 07, 2026</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-primary rounded-pill px-4 fw-bold">Return Home</a>
+                            <button onclick="window.print()" class="btn btn-outline-secondary rounded-pill px-4 fw-bold">
+                                <i class="bi bi-printer me-2"></i>Print
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft {
+        background-color: #f8fafc;
+    }
+
+    .lh-lg {
+        line-height: 1.8;
+    }
+
+    .z-1 {
+        z-index: 1;
+    }
+</style>

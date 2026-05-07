@@ -1,0 +1,110 @@
+﻿@* S!--CODE ATTRIBUTION
+TITLE: ASP.NET Core Form Tag Helpers
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Floating Labels Documentation
+AUTHOR: Bootstrap Team
+DATE: 7 May 2026
+VERSION: Bootstrap v5.3
+AVAILABLE: https://getbootstrap.com/docs/5.3/forms/floating-labels/
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: Client-Side Validation in MVC
+AUTHOR: Microsoft ASP.NET Core Team
+DATE: 7 May 2026
+VERSION: ASP.NET Core 8.0
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation
+*@
+
+@* S!--CODE ATTRIBUTION
+TITLE: UX Best Practices for Forms
+AUTHOR: UX Collective (UXDesign.cc)
+DATE: 7 May 2026
+VERSION: Article Publication
+AVAILABLE: https://uxdesign.cc/the-ultimate-guide-to-form-design-bb7089b0365c
+*@
+
+@model Event_Ease2.Models.Event
+
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <nav class="mb-4">
+                <a asp-action="Index" class="text-decoration-none text-muted fw-medium">
+                    <i class="bi bi-arrow-left me-2"></i>Back to Events
+                </a>
+            </nav>
+
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="bg-primary p-4 text-white">
+                    <h3 class="fw-bold mb-0">Update Event Brief</h3>
+                    <p class="small opacity-75 mb-0">Refine the details for "@Model.EventName"</p>
+                </div>
+
+                <div class="card-body p-4 p-md-5 bg-white">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 rounded-3 small mb-4"></div>
+                        <input type="hidden" asp-for="EventID" />
+
+                        <div class="form-floating mb-4">
+                            <input asp-for="EventName" class="form-control border-0 bg-soft shadow-none fw-bold" placeholder="Event Name" />
+                            <label asp-for="EventName" class="text-muted">Event Name</label>
+                            <span asp-validation-for="EventName" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <textarea asp-for="EventDescription" class="form-control border-0 bg-soft shadow-none" placeholder="Description" style="height: 180px;"></textarea>
+                            <label asp-for="EventDescription" class="text-muted">Event Description</label>
+                            <span asp-validation-for="EventDescription" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-grid gap-3 pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold py-3 shadow-sm transition-all">
+                                Save Changes
+                            </button>
+                            <a asp-action="Details" asp-route-id="@Model.EventID" class="btn btn-link text-muted text-decoration-none small">
+                                Discard Changes
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft {
+        background-color: #f1f5f9;
+    }
+
+    textarea.form-control {
+        resize: none;
+    }
+
+    .form-floating > .form-control:focus ~ label {
+        color: #0ea5e9;
+        font-weight: 600;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
