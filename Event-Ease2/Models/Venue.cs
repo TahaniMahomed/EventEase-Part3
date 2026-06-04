@@ -28,6 +28,15 @@ VERSION: .NET Framework / .NET 8.0
 AVAILABLE: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations
 */
 
+/* S-CODE ATTRIBUTION
+TITLE: Building relational database tables using EF Core Code-First approach
+AUTHOR: C# Corner Developer Network
+DATE: 3 June 2026
+VERSION: No version specified
+AVAILABLE: https://www.c-sharpcorner.com/article/code-first-approach-in-entity-framework-core/
+*/
+
+
 namespace Event_Ease2.Models
 {
     using System.ComponentModel.DataAnnotations;
@@ -40,6 +49,6 @@ namespace Event_Ease2.Models
         public string VenueName { get; set; }
         public string VenueLocation { get; set; }
         public int VenueCapacity { get; set; }
-        public string ImageURL { get; set; } // Use placeholder URLs for Part 1 
+        public string ImageURL { get; set; }  
     }
 }

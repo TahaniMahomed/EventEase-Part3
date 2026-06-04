@@ -30,6 +30,14 @@ VERSION: Article Publication
 AVAILABLE: https://uxdesign.cc/the-ultimate-guide-to-form-design-bb7089b0365c
 *@
 
+@* S-CODE ATTRIBUTION
+TITLE: HTML drop-down select list values and binding configurations
+AUTHOR: W3Schools Network
+DATE: 3 June 2026
+VERSION: No version specified
+AVAILABLE: https://www.w3schools.com/tags/tag_select.asp
+*@
+
 @model Event_Ease2.Models.Event
 
 @{
@@ -63,6 +71,14 @@ AVAILABLE: https://uxdesign.cc/the-ultimate-guide-to-form-design-bb7089b0365c
                         </div>
 
                         <div class="form-floating mb-4">
+                            <select asp-for="EventTypeID" asp-items="ViewBag.EventTypeID" class="form-select border-0 bg-soft shadow-none" style="font-size: 1rem;">
+                                <option value="" disabled>-- Select an Event Category --</option>
+                            </select>
+                            <label asp-for="EventTypeID" class="text-muted">Event Category Type</label>
+                            <span asp-validation-for="EventTypeID" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-floating mb-4">
                             <textarea asp-for="EventDescription" class="form-control border-0 bg-soft shadow-none" placeholder="Description" style="height: 180px;"></textarea>
                             <label asp-for="EventDescription" class="text-muted">Event Description</label>
                             <span asp-validation-for="EventDescription" class="text-danger small"></span>
@@ -92,7 +108,8 @@ AVAILABLE: https://uxdesign.cc/the-ultimate-guide-to-form-design-bb7089b0365c
         resize: none;
     }
 
-    .form-floating > .form-control:focus ~ label {
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-select:focus ~ label {
         color: #0ea5e9;
         font-weight: 600;
     }

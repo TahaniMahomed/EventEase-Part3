@@ -35,9 +35,19 @@ VERSION: Video Tutorial
 AVAILABLE: https://www.youtube.com/watch?v=ti5An0vA0z8
 */
 
+/* S-CODE ATTRIBUTION
+TITLE: File uploads in ASP.NET Core MVC applications
+AUTHOR: Microsoft Corporation
+DATE: 3 June 2026
+VERSION: No version specified
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads
+*/
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO; // Added for Path validation
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -97,6 +107,25 @@ namespace Event_Ease2.Controllers
         {
             if (imageFile != null && imageFile.Length > 0)
             {
+                // 1. EXTENSION VALIDATION
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+                var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    ModelState.AddModelError("imageFile", "Unsupported file format. Please upload an image with a .jpg, .jpeg, or .png extension.");
+                    return View(venue);
+                }
+
+                // 2. CONTENT TYPE (MIME) VALIDATION
+                var allowedMimeTypes = new[] { "image/jpeg", "image/png", "image/pjpeg" };
+                if (!allowedMimeTypes.Contains(imageFile.ContentType.ToLower()))
+                {
+                    ModelState.AddModelError("imageFile", "Invalid file content detected. Please upload a authentic image file.");
+                    return View(venue);
+                }
+
+                // If valid, upload file to local blob emulator storage
                 string imageUrl = await _blobService.UploadFileAsync(imageFile, "venue-images");
                 venue.ImageURL = imageUrl;
             }

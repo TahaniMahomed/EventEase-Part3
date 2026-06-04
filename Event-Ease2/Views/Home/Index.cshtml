@@ -26,95 +26,308 @@ AVAILABLE: https://www.awwwards.com/websites/clean/
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container-fluid px-0">
-    <div class="row align-items-center g-0 mb-5 bg-white rounded-4 overflow-hidden shadow-sm border">
-        <div class="col-lg-6 p-5 p-md-5">
-            <div class="pe-lg-5">
-                <span class="badge bg-soft text-primary px-3 py-2 rounded-pill mb-3 fw-bold text-uppercase border">Premium Venue Management</span>
-                <h1 class="display-3 fw-bold text-dark mb-4" style="letter-spacing: -2px; line-height: 1.1;">
-                    Planning an <span class="text-primary">Event?</span> We've got the space.
-                </h1>
-                <p class="lead text-muted mb-5 fs-5">
-                    From high-end networking halls to creative studios, find and book the perfect venue in seconds.
-                    No more manual paper trails—just seamless, professional event management.
-                </p>
-                <div class="d-flex gap-3">
-                    <a asp-controller="Venues" asp-action="Index" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold shadow">
-                        Explore Venues
-                    </a>
-                    <a asp-controller="Bookings" asp-action="Index" class="btn btn-outline-dark btn-lg px-5 py-3 rounded-pill fw-bold">
-                        Manage Bookings
-                    </a>
-                </div>
+<div class="homepage">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+
+        <div class="hero-overlay"></div>
+
+        <div class="container hero-content">
+
+            <span class="hero-badge">
+                Premium Venue Management
+            </span>
+
+            <h1 class="hero-title">
+                Curating Exceptional Spaces
+                <br />
+                For Unforgettable Events
+            </h1>
+
+            <p class="hero-description">
+                Discover premium venues, streamline reservations,
+                manage event documentation and track bookings through
+                one intelligent platform designed for modern event planning.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a asp-controller="Venues"
+                   asp-action="Index"
+                   class="btn btn-gold">
+                    Explore Venues
+                </a>
+
+                <a asp-controller="Bookings"
+                   asp-action="Index"
+                   class="btn btn-outline-light-custom">
+                    Manage Bookings
+                </a>
+
             </div>
+
         </div>
 
-        <div class="col-lg-6">
-            <div class="position-relative" style="height: 600px;">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"
-                     class="img-fluid w-100 h-100 object-fit-cover"
-                     alt="Modern Professional Event Space" />
-                <div class="position-absolute bottom-0 start-0 m-4 p-3 bg-white shadow-lg rounded-3 border d-none d-md-flex align-items-center gap-3 animate-bounce">
-                    <div class="bg-success text-white rounded-circle p-2">
-                        <i class="bi bi-check2-circle fs-4"></i>
-                    </div>
-                    <div>
-                        <small class="text-muted d-block">System Status</small>
-                        <span class="fw-bold">Reservations Active</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <div class="row g-4 text-center py-5">
-        <div class="col-md-4">
-            <div class="card p-4 h-100 border-0 shadow-sm rounded-4">
-                <div class="bg-soft text-primary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
-                    <i class="bi bi-shield-check fs-2"></i>
+    <!-- FEATURES SECTION -->
+    <section class="features-section">
+
+        <div class="container">
+
+            <div class="row g-4">
+
+                <!-- CARD 1 -->
+                <div class="col-lg-6">
+
+                    <div class="feature-card">
+
+                        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1000&q=80"
+                             class="feature-image"
+                             alt="Venue Scheduling" />
+
+                        <div class="feature-content">
+
+                            <h3>Seamless Availability</h3>
+
+                            <p>
+                                Instantly view venue availability,
+                                manage reservations and synchronize bookings
+                                through a centralized scheduling platform.
+                            </p>
+
+                        </div>
+
+                    </div>
+
                 </div>
-                <h4 class="fw-bold">Easy Booking</h4>
-                <p class="text-muted">Intuitive reservation system with real-time availability checks.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card p-4 h-100 border-0 shadow-sm rounded-4">
-                <div class="bg-soft text-primary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
-                    <i class="bi bi-cloud-arrow-up fs-2"></i>
+
+                <!-- CARD 2 -->
+                <div class="col-lg-6">
+
+                    <div class="feature-card">
+
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1000&q=80"
+                             class="feature-image"
+                             alt="Document Storage" />
+
+                        <div class="feature-content">
+
+                            <h3>Secure Document Vault</h3>
+
+                            <p>
+                                Safely store contracts, floor plans,
+                                event agreements and supporting documentation
+                                within a secure cloud repository.
+                            </p>
+
+                        </div>
+
+                    </div>
+
                 </div>
-                <h4 class="fw-bold">Cloud Storage</h4>
-                <p class="text-muted">Securely store and manage all your event documents in one place.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card p-4 h-100 border-0 shadow-sm rounded-4">
-                <div class="bg-soft text-primary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
-                    <i class="bi bi-calendar3 fs-2"></i>
+
+                <!-- CARD 3 -->
+                <div class="col-lg-6">
+
+                    <div class="feature-card">
+
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80"
+                             class="feature-image"
+                             alt="Tracking" />
+
+                        <div class="feature-content">
+
+                            <h3>End-to-End Tracking</h3>
+
+                            <p>
+                                Monitor every stage of the venue booking
+                                lifecycle from inquiry through event completion.
+                            </p>
+
+                        </div>
+
+                    </div>
+
                 </div>
-                <h4 class="fw-bold">Smart Tracking</h4>
-                <p class="text-muted">Keep track of your upcoming events with automated calendar sync.</p>
+
+                <!-- CARD 4 -->
+                <div class="col-lg-6">
+
+                    <div class="feature-card">
+
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80"
+                             class="feature-image"
+                             alt="Analytics" />
+
+                        <div class="feature-content">
+
+                            <h3>Venue Insights & Analytics</h3>
+
+                            <p>
+                                Generate meaningful reports,
+                                occupancy trends and booking statistics
+                                to support better business decisions.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
-    </div>
+
+    </section>
+
 </div>
 
 <style>
-    .object-fit-cover {
+
+    :root {
+        --gold: #c8a96a;
+        --dark: #0f1720;
+        --light: #ffffff;
+        --gray: #f5f5f5;
+    }
+
+    body {
+        background-color: #fafafa;
+    }
+
+    /* HERO SECTION */
+
+    .hero-section {
+        position: relative;
+        min-height: 90vh;
+        background: linear-gradient( rgba(10,15,25,0.65), rgba(10,15,25,0.75) ), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 700px;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        background: rgba(200,169,106,.15);
+        border: 1px solid rgba(200,169,106,.4);
+        color: var(--gold);
+        padding: 10px 20px;
+        border-radius: 50px;
+        margin-bottom: 25px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .hero-title {
+        color: white;
+        font-size: 4rem;
+        font-weight: 700;
+        line-height: 1.15;
+        margin-bottom: 25px;
+    }
+
+    .hero-description {
+        color: rgba(255,255,255,.85);
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        max-width: 650px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .btn-gold {
+        background: var(--gold);
+        color: white;
+        padding: 14px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .3s;
+    }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            background: #b89554;
+            color: white;
+        }
+
+    .btn-outline-light-custom {
+        border: 1px solid rgba(255,255,255,.5);
+        color: white;
+        padding: 14px 35px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: .3s;
+    }
+
+        .btn-outline-light-custom:hover {
+            background: white;
+            color: var(--dark);
+        }
+
+    /* FEATURES */
+
+    .features-section {
+        padding: 80px 0;
+        background: #fafafa;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,.08);
+        transition: .3s;
+        height: 100%;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,.15);
+        }
+
+    .feature-image {
+        width: 100%;
+        height: 260px;
         object-fit: cover;
     }
 
-    /* Subtle bounce for the status card */
-    .animate-bounce {
-        animation: bounce 3s infinite;
+    .feature-content {
+        padding: 30px;
     }
 
-    @@keyframes bounce {
-        0%, 100% {
-            transform: translateY(0);
+        .feature-content h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 700;
         }
 
-        50% {
-            transform: translateY(-10px);
+        .feature-content p {
+            color: #666;
+            margin-bottom: 0;
+            line-height: 1.7;
+        }
+
+    @@media(max-width:768px) {
+
+        .hero-title {
+            font-size: 2.6rem;
         }
     }
+   
 </style>

@@ -28,6 +28,7 @@ VERSION: .NET Framework / .NET 8.0
 AVAILABLE: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations
 */
 
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Event_Ease2.Models

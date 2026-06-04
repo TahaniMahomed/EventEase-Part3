@@ -1,121 +1,204 @@
-@* S!--CODE ATTRIBUTION
-TITLE: CSS Transitions Guide
-AUTHOR: Mozilla Developer Network (MDN)
-DATE: 7 May 2026
-VERSION: CSS Transitions Documentation
-AVAILABLE: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions
-*@
-
-@* S!--CODE ATTRIBUTION
-TITLE: CSS Shadow Generator (UI Inspiration)
-AUTHOR: GetCSSScan Team
-DATE: 7 May 2026
-VERSION: CSS Box-Shadow Examples
-AVAILABLE: https://getcssscan.com/css-box-shadow-examples
-*@
-
-/* --- EventEase Professional Theme --- */
-
+@* S!--CODE ATTRIBUTION TITLE: CSS Transitions Guide AUTHOR: Mozilla Developer Network (MDN) DATE: 7 May 2026 VERSION: CSS Transitions Documentation AVAILABLE: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions *@ @* S!--CODE ATTRIBUTION TITLE: CSS Shadow Generator (UI Inspiration) AUTHOR: GetCSSScan Team DATE: 7 May 2026 VERSION: CSS Box-Shadow Examples AVAILABLE: https://getcssscan.com/css-box-shadow-examples *@
+/* ==========================================
+EVENTEASE PREMIUM THEME
+========================================== */
 :root {
-    --primary-blue: #0ea5e9;
-    --dark-slate: #0f172a;
-    --border-soft: rgba(0, 0, 0, 0.08);
+    ``` --gold: #c8a96a;
+    --gold-dark: #b8924d;
+    --dark: #0f172a;
+    --dark-alt: #08111d;
+    --light: #ffffff;
+    --gray-bg: #f8fafc;
+    --border-soft: rgba(0,0,0,.08);
+    ```
+}
+
+/* ==========================================
+GLOBAL
+========================================== */
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
+    ``` font-family: 'Inter', sans-serif;
+    background-color: var(--gray-bg);
+    color: #475569;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    ```
 }
 
-/* Global Transitions for the "Pop" Effect */
 .transition-all {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    ``` transition: all .3s cubic-bezier(.4,0,.2,1);
+    ```
 }
 
-/* Card Improvements (The Pop-Up) */
-.card, .booking-item, .venue-card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid var(--border-soft) !important;
-    background-color: #ffffff;
+/* ==========================================
+CARDS
+========================================== */
+
+.card,
+.booking-item,
+.venue-card {
+    ``` border: 1px solid var(--border-soft) !important;
+    background: white;
+    transition: all .3s ease;
+    ```
 }
 
-    .card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03) !important;
-        border-color: var(--primary-blue) !important;
+    .card:hover,
+    .booking-item:hover,
+    .venue-card:hover {
+        ``` transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0,0,0,.08), 0 10px 10px -5px rgba(0,0,0,.03);
+        border-color: var(--gold) !important;
+        ```
     }
 
-/* Professional Button Styles */
+/* ==========================================
+BUTTONS
+========================================== */
+
 .btn-primary {
-    background-color: var(--primary-blue);
+    ``` background: var(--gold);
     border: none;
-    transition: all 0.2s ease;
+    ```
 }
 
     .btn-primary:hover {
-        filter: brightness(1.05);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        ``` background: var(--gold-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(200,169,106,.25);
+        ```
     }
 
-.btn-dark:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+.btn-dark {
+    ``` background: var(--dark);
+    ```
 }
 
-/* Navbar Interactive Underlines */
+    .btn-dark:hover {
+        ``` transform: translateY(-2px);
+        background: #1e293b;
+        ```
+    }
+
+/* ==========================================
+NAVIGATION
+========================================== */
+
 .nav-link {
-    position: relative;
-    transition: color 0.2s ease;
-    color: #475569 !important;
+    ``` position: relative;
+    transition: .3s;
+    ```
 }
-
-    .nav-link:hover {
-        color: var(--primary-blue) !important;
-    }
 
     .nav-link::after {
-        content: '';
+        ``` content: '';
         position: absolute;
-        width: 0;
-        height: 2px;
         bottom: 5px;
         left: 50%;
-        background-color: var(--primary-blue);
-        transition: all 0.3s ease;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: .3s;
         transform: translateX(-50%);
+        ```
     }
 
     .nav-link:hover::after {
-        width: 60%;
+        ``` width: 60%;
+        ```
     }
 
-/* Footer link hovers */
-.hover-white:hover {
-    color: #ffffff !important;
-    padding-left: 5px;
-    transition: all 0.2s ease;
-}
+/* ==========================================
+FORMS
+========================================== */
 
-/* Rounded borders for inputs */
-.form-control {
-    border-radius: 8px;
+.form-control,
+.form-select {
+    ``` border-radius: 10px;
     border: 1px solid #e2e8f0;
-    padding: 0.6rem 1rem;
+    padding: .75rem 1rem;
+    ```
 }
 
-    .form-control:focus {
-        border-color: var(--primary-blue);
-        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    .form-control:focus,
+    .form-select:focus {
+        ``` border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(200,169,106,.15);
+        ```
     }
 
-/* Badge Styling */
-.badge {
-    font-weight: 500;
-    letter-spacing: 0.3px;
+/* ==========================================
+TABLES
+========================================== */
+
+.table {
+    ``` background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    ```
 }
 
-/* Custom Background Utility */
-.bg-soft {
-    background-color: #f1f5f9;
+    .table thead {
+        ``` background: var(--dark);
+        color: white;
+        ```
+    }
+
+/* ==========================================
+BADGES
+========================================== */
+
+.badge {
+    ``` font-weight: 500;
+    letter-spacing: .3px;
+    ```
 }
+
+/* ==========================================
+UTILITIES
+========================================== */
+
+.bg-soft {
+    ``` background: #f8fafc;
+    ```
+}
+
+.text-gold {
+    ``` color: var(--gold);
+    ```
+}
+
+.border-gold {
+    ``` border-color: var(--gold) !important;
+    ```
+}
+
+/* ==========================================
+SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar {
+    ``` width: 10px;
+    ```
+}
+
+::-webkit-scrollbar-track {
+    ``` background: #f1f5f9;
+    ```
+}
+
+::-webkit-scrollbar-thumb {
+    ``` background: var(--gold);
+    border-radius: 50px;
+    ```
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        ``` background: var(--gold-dark);
+        ```
+    }

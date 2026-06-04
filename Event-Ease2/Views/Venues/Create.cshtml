@@ -73,6 +73,11 @@ AVAILABLE: https://uxdesign.cc/the-ultimate-guide-to-form-design-bb7089b0365c
                         <div class="input-group">
                             <input type="file" name="imageFile" class="form-control border-0 bg-soft shadow-none rounded-3 py-2" accept="image/*" />
                         </div>
+
+                        <div class="mt-1">
+                            <span class="text-danger small fw-semibold">@Html.ValidationMessage("imageFile")</span>
+                        </div>
+
                         <div class="form-text d-flex align-items-center mt-2">
                             <i class="bi bi-info-circle me-1 text-primary"></i>
                             <span>This will be securely stored in Azure Blob Storage</span>

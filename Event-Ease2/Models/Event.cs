@@ -29,16 +29,41 @@ VERSION: .NET Framework / .NET 8.0
 AVAILABLE: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations
 */
 
+/* S-CODE ATTRIBUTION
+TITLE: Entity Framework Core Relationship Configuration (One-to-Many Lookups)
+AUTHOR: Jackson, L.
+DATE: 3 June 2026
+VERSION: No version specified
+AVAILABLE: https://www.youtube.com/watch?v=uC0_7m2wN6M
+*/
+
+
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Event_Ease2.Models
 {
-    using System.ComponentModel.DataAnnotations;
-
     public class Event
     {
         [Key]
         public int EventID { get; set; }
+
         [Required]
+        [Display(Name = "Event Name")]
         public string EventName { get; set; }
+
+        [Display(Name = "Description")]
         public string EventDescription { get; set; }
+
+        // --- PART 3 ENHANCEMENT: EVENT TYPE LOOKUP RELATIONSHIP ---
+
+        [Required]
+        [Display(Name = "Event Type")]
+        public int EventTypeID { get; set; }
+
+        [ValidateNever]
+        [ForeignKey("EventTypeID")]
+        public virtual EventType EventType { get; set; }
     }
 }

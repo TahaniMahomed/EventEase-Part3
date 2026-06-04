@@ -51,6 +51,23 @@ VERSION: EF Core 8.0
 AVAILABLE: https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager
 */
 
+/* S-CODE ATTRIBUTION
+TITLE: Model attributes and relationships in Entity Framework Core
+AUTHOR: Microsoft Corporation
+DATE: 3 June 2023
+VERSION: No version specified
+AVAILABLE: https://learn.microsoft.com/en-us/ef/core/modeling/
+*/
+
+/* S-CODE ATTRIBUTION
+TITLE: Perform text search and filter data in ASP.NET Core MVC
+AUTHOR: Microsoft Corporation
+DATE: 3 June 2026
+VERSION: No version specified
+AVAILABLE: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/search
+*/
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,18 +89,53 @@ namespace Event_Ease2.Controllers
             _context = context;
         }
 
-        // GET: Bookings
-        public async Task<IActionResult> Index(string searchString)
+        // GET: Bookings (UPDATED FOR PART 3 ADVANCED MULTI-CONDITIONAL FILTERING)
+        public async Task<IActionResult> Index(string searchString, int? eventTypeId, DateTime? filterStartDate, DateTime? filterEndDate, int? venueId)
         {
+            // Set up lookups for dropdown lists in our filtering view panel
+            ViewData["EventTypeID"] = new SelectList(_context.EventTypes, "EventTypeID", "EventTypeName", eventTypeId);
+            ViewData["VenueID"] = new SelectList(_context.Venues, "VenueID", "VenueName", venueId);
+
+            // Retain search parameter text strings inside inputs across page updates
+            ViewData["CurrentSearch"] = searchString;
+            ViewData["FilterStartDate"] = filterStartDate?.ToString("yyyy-MM-ddTHH:mm");
+            ViewData["FilterEndDate"] = filterEndDate?.ToString("yyyy-MM-ddTHH:mm");
+
+            // Build our base relational tracking query pipeline
             var bookingsQuery = _context.Bookings
                 .Include(b => b.Event)
+                    .ThenInclude(e => e.EventType) // Multi-level join for structural category lookups
                 .Include(b => b.Venue)
                 .AsQueryable();
 
+            // 1. FILTER CONDITION: Part 2 Keyword String Matching (Booking ID or Event Name)
             if (!String.IsNullOrEmpty(searchString))
             {
                 bookingsQuery = bookingsQuery.Where(s => s.BookingID.ToString().Contains(searchString)
                                                       || s.Event.EventName.Contains(searchString));
+            }
+
+            // 2. FILTER CONDITION: Part 3 Advanced Event Type Selection lookup
+            if (eventTypeId.HasValue)
+            {
+                bookingsQuery = bookingsQuery.Where(b => b.Event.EventTypeID == eventTypeId.Value);
+            }
+
+            // 3. FILTER CONDITION: Part 3 Specific Venue ID filter
+            if (venueId.HasValue)
+            {
+                bookingsQuery = bookingsQuery.Where(b => b.VenueID == venueId.Value);
+            }
+
+            // 4. FILTER CONDITION: Part 3 Date Range Bounds Validation
+            if (filterStartDate.HasValue)
+            {
+                bookingsQuery = bookingsQuery.Where(b => b.StartDate >= filterStartDate.Value);
+            }
+
+            if (filterEndDate.HasValue)
+            {
+                bookingsQuery = bookingsQuery.Where(b => b.EndDate <= filterEndDate.Value);
             }
 
             return View(await bookingsQuery.ToListAsync());
@@ -96,6 +148,7 @@ namespace Event_Ease2.Controllers
 
             var booking = await _context.Bookings
                 .Include(b => b.Event)
+                    .ThenInclude(e => e.EventType)
                 .Include(b => b.Venue)
                 .FirstOrDefaultAsync(m => m.BookingID == id);
 
@@ -117,8 +170,15 @@ namespace Event_Ease2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingID,StartDate,EndDate,VenueID,EventID")] Booking booking)
         {
+            // 1. VALIDATE END DATE POST-DATING START DATE
+            if (booking.EndDate <= booking.StartDate)
+            {
+                ModelState.AddModelError("EndDate", "Validation Error: The scheduled End Date must fall after the selected Start Date.");
+            }
+
             if (ModelState.IsValid)
             {
+                // 2. DOUBLE BOOKING CHECK (CREATE)
                 bool isDoubleBooked = await _context.Bookings.AnyAsync(b =>
                     b.VenueID == booking.VenueID &&
                     ((booking.StartDate >= b.StartDate && booking.StartDate < b.EndDate) ||
@@ -139,6 +199,9 @@ namespace Event_Ease2.Controllers
                 TempData["SuccessMessage"] = "Booking created successfully!";
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["EventID"] = new SelectList(_context.Events, "EventID", "EventName", booking.EventID);
+            ViewData["VenueID"] = new SelectList(_context.Venues, "VenueID", "VenueName", booking.VenueID);
             return View(booking);
         }
 
@@ -162,8 +225,30 @@ namespace Event_Ease2.Controllers
         {
             if (id != booking.BookingID) return NotFound();
 
+            // 1. VALIDATE END DATE POST-DATING START DATE
+            if (booking.EndDate <= booking.StartDate)
+            {
+                ModelState.AddModelError("EndDate", "Validation Error: The scheduled End Date must fall after the selected Start Date.");
+            }
+
             if (ModelState.IsValid)
             {
+                // 2. DOUBLE BOOKING CHECK (EDIT - EXCLUDING CURRENT RECORD SELF-CONFLICT)
+                bool isDoubleBookedOnEdit = await _context.Bookings.AnyAsync(b =>
+                    b.BookingID != booking.BookingID &&
+                    b.VenueID == booking.VenueID &&
+                    ((booking.StartDate >= b.StartDate && booking.StartDate < b.EndDate) ||
+                     (booking.EndDate > b.StartDate && booking.EndDate <= b.EndDate) ||
+                     (booking.StartDate <= b.StartDate && booking.EndDate >= b.EndDate)));
+
+                if (isDoubleBookedOnEdit)
+                {
+                    ModelState.AddModelError("", "Validation Error: Cannot update booking because it creates a schedule overlap with an existing reservation.");
+                    ViewData["EventID"] = new SelectList(_context.Events, "EventID", "EventName", booking.EventID);
+                    ViewData["VenueID"] = new SelectList(_context.Venues, "VenueID", "VenueName", booking.VenueID);
+                    return View(booking);
+                }
+
                 try
                 {
                     booking.BookingDate = DateTime.Now;
@@ -191,6 +276,7 @@ namespace Event_Ease2.Controllers
 
             var booking = await _context.Bookings
                 .Include(b => b.Event)
+                    .ThenInclude(e => e.EventType)
                 .Include(b => b.Venue)
                 .FirstOrDefaultAsync(m => m.BookingID == id);
 

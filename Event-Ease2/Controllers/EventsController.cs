@@ -12,6 +12,14 @@
 <!--VERSION: (Visual Studio 2013 – ASP.NET Scaffolding)-->
 <!--AVAILABLE: (https://learn.microsoft.com/en-us/aspnet/visual-studio/overview/2013/aspnet-scaffolding-overview)-->
 */
+/* S-CODE ATTRIBUTION
+TITLE: Passing data from Controller to View via ViewData and SelectList in ASP.NET MVC
+AUTHOR: TutorialsTeacher
+DATE: 3 June 2026
+VERSION: No version specified
+AVAILABLE: https://www.tutorialsteacher.com/mvc/viewdata
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +68,11 @@ namespace Event_Ease2.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
+            ViewBag.EventTypeID = new SelectList(
+                _context.EventTypes,
+                "EventTypeID",
+                "EventTypeName");
+
             return View();
         }
 
@@ -68,7 +81,7 @@ namespace Event_Ease2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventID,EventName,EventDescription")] Event @event)
+        public async Task<IActionResult> Create([Bind("EventID,EventName,EventDescription,EventTypeID")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -76,6 +89,13 @@ namespace Event_Ease2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.EventTypeID = new SelectList(
+                _context.EventTypes,
+                "EventTypeID",
+                "EventTypeName",
+                @event.EventTypeID);
+
             return View(@event);
         }
 
@@ -92,15 +112,21 @@ namespace Event_Ease2.Controllers
             {
                 return NotFound();
             }
+
+            // ⬇️ ADD THIS LINE RIGHT HERE TO POPULATE THE DROP LIST ⬇️
+            ViewBag.EventTypeID = new SelectList(
+                _context.EventTypes,
+                "EventTypeID",
+                "EventTypeName",
+                @event.EventTypeID); // This tells it which category is currently selected!
+
             return View(@event);
         }
 
         // POST: Events/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventID,EventName,EventDescription")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("EventID,EventName,EventDescription,EventTypeID")] Event @event)
         {
             if (id != @event.EventID)
             {
@@ -113,20 +139,22 @@ namespace Event_Ease2.Controllers
                 {
                     _context.Update(@event);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventExists(@event.EventID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!EventExists(@event.EventID)) return NotFound();
+                    else throw;
                 }
-                return RedirectToAction(nameof(Index));
             }
+
+            // ⬇️ ALSO ENSURE THIS GENERATION IS PRESENT HERE IN CASE THE FORM HAS ERRORS ⬇️
+            ViewBag.EventTypeID = new SelectList(
+                _context.EventTypes,
+                "EventTypeID",
+                "EventTypeName",
+                @event.EventTypeID);
+
             return View(@event);
         }
 
@@ -148,18 +176,29 @@ namespace Event_Ease2.Controllers
             return View(@event);
         }
 
-        // POST: Events/Delete/5
+        // POST: Events/Delete/5 (UPDATED TO PREVENT BREAKING LIVE DEPENDENCIES)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // 1. CHECK FOR LIVE DEPENDENT BOOKINGS UPFRONT
+            var hasActiveBookings = await _context.Bookings.AnyAsync(b => b.EventID == id);
+
+            if (hasActiveBookings)
+            {
+                // 2. PREVENT DELETION AND SEND CLEAR ALERTS
+                TempData["ErrorMessage"] = "Action Denied: This Event cannot be deleted because it is tied to an active venue reservation.";
+                return RedirectToAction(nameof(Index));
+            }
+
             var @event = await _context.Events.FindAsync(id);
             if (@event != null)
             {
                 _context.Events.Remove(@event);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Event deleted successfully.";
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
