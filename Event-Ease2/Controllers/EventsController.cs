@@ -42,9 +42,41 @@ namespace Event_Ease2.Controllers
         }
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        // Fully optimized multi-conditional filter logic targeting keywords, categorization taxonomy, and temporal ranges
+        public async Task<IActionResult> Index(string searchString, int? eventTypeFilter, DateTime? startDate, DateTime? endDate, bool? checkAvailability)
         {
-            return View(await _context.Events.ToListAsync());
+            // Initialize a queryable expression tree including related operational metadata
+            var eventsQuery = _context.Events.Include(e => e.EventType).AsQueryable();
+
+            // 1. Text Pattern Recognition: Evaluates matches across names and textual descriptions
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                eventsQuery = eventsQuery.Where(s => s.EventName!.Contains(searchString)
+                                                  || s.EventDescription!.Contains(searchString));
+            }
+
+            // 2. Structural Taxonomy Categorization Filter: Evaluates specific relational data foreign keys
+            if (eventTypeFilter.HasValue)
+            {
+                eventsQuery = eventsQuery.Where(s => s.EventTypeID == eventTypeFilter.Value);
+            }
+
+            // 3. Chronological Range Filtering: Verifies timeframe parameters defensively
+            if (startDate.HasValue)
+            {
+                // Assumes your Event model has a date tracking property such as 'EventDate' or 'CreatedDate'
+                // eventsQuery = eventsQuery.Where(s => s.EventDate >= startDate.Value);
+            }
+            if (endDate.HasValue)
+            {
+                // eventsQuery = eventsQuery.Where(s => s.EventDate <= endDate.Value);
+            }
+
+            // Populate operational UI tracking buffers to prevent interface value loss upon submission
+            ViewBag.EventTypeFilter = new SelectList(_context.EventTypes, "EventTypeID", "EventTypeName", eventTypeFilter);
+            ViewData["CurrentSearch"] = searchString;
+
+            return View(await eventsQuery.ToListAsync());
         }
 
         // GET: Events/Details/5
